@@ -1,0 +1,195 @@
+﻿<UserControl
+    x:Class="Zwiggy.View.User_Control.RatingControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Zwiggy.View.User_Control"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top">
+        <Grid VerticalAlignment="Top"
+                                  PointerExited="OnRatingControlExited">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontFamily="Segoe mdl2 assets"
+                                           Text="&#xE734;"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <TextBlock Name="FirstStarTextBlock"
+                                           FontFamily="Segoe mdl2 assets"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <Grid PointerEntered="OnFirstQuarterEntered"
+                                      Background="Transparent"
+                                      Name="FirstStarFirstQuarterGrid"/>
+            <Grid Grid.Column="1"
+                                      PointerEntered="OnSecondQuarterEntered"
+                                      Background="Transparent"
+                                      Name="FirstStarSecondQuarterGrid"/>
+            <Grid PointerEntered="OnThirdQuarterEntered"
+                                      Grid.Column="2"
+                                      Background="Transparent"
+                                      Name="FirstStarThirdQuarterGrid"/>
+            <Grid PointerEntered="OnFourthQuarterEntered"
+                                      Grid.Column="3"
+                                      Background="Transparent"
+                                      Name="FirstStarFourthQuarterGrid"/>
+        </Grid>
+        <Grid
+                                  VerticalAlignment="Top"
+                                  PointerExited="OnRatingControlExited">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontFamily="Segoe mdl2 assets"
+                                           Text="&#xE734;"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <TextBlock Name="SecondStarTextBlock"
+                                           FontFamily="Segoe mdl2 assets"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <Grid PointerEntered="OnFirstQuarterEntered"
+                                      Background="Transparent"
+                                      Name="SecondStarFirstQuarterGrid"/>
+            <Grid Grid.Column="1"
+                                      PointerEntered="OnSecondQuarterEntered"
+                                      Background="Transparent"
+                                      Name="SecondStarSecondQuarterGrid"/>
+            <Grid PointerEntered="OnThirdQuarterEntered"
+                                      Grid.Column="2"
+                                      Background="Transparent"
+                                      Name="SecondStarThirdQuarterGrid"/>
+            <Grid PointerEntered="OnFourthQuarterEntered"
+                                      Grid.Column="3"
+                                      Background="Transparent"
+                                      Name="SecondStarFourthQuarterGrid"/>
+        </Grid>
+        <Grid
+                                  VerticalAlignment="Top"
+                                  PointerExited="OnRatingControlExited">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontFamily="Segoe mdl2 assets"
+                                           Text="&#xE734;"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <TextBlock Name="ThirdStarTextBlock"
+                                           FontFamily="Segoe mdl2 assets"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <Grid PointerEntered="OnFirstQuarterEntered"
+                                      Background="Transparent"
+                                      Name="ThirdStarFirstQuarterGrid"/>
+            <Grid Grid.Column="1"
+                                      PointerEntered="OnSecondQuarterEntered"
+                                      Background="Transparent"
+                                      Name="ThirdStarSecondQuarterGrid"/>
+            <Grid PointerEntered="OnThirdQuarterEntered"
+                                      Grid.Column="2"
+                                      Background="Transparent"
+                                      Name="ThirdStarThirdQuarterGrid"/>
+            <Grid PointerEntered="OnFourthQuarterEntered"
+                                      Grid.Column="3"
+                                      Background="Transparent"
+                                      Name="ThirdStarFourthQuarterGrid"/>
+        </Grid>
+        <Grid VerticalAlignment="Top"
+                                  PointerExited="OnRatingControlExited">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontFamily="Segoe mdl2 assets"
+                                           Text="&#xE734;"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <TextBlock Name="FourthStarTextBlock"
+                                           FontFamily="Segoe mdl2 assets"
+                                           FontSize="24"
+                                           Margin="0,0,5,0"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <Grid PointerEntered="OnFirstQuarterEntered"
+                                      Background="Transparent"
+                                      Name="FourthStarFirstQuarterGrid"/>
+            <Grid Grid.Column="1"
+                                      PointerEntered="OnSecondQuarterEntered"
+                                      Background="Transparent"
+                                      Name="FourthStarSecondQuarterGrid"/>
+            <Grid PointerEntered="OnThirdQuarterEntered"
+                                      Grid.Column="2"
+                                      Background="Transparent"
+                                      Name="FourthStarThirdQuarterGrid"/>
+            <Grid PointerEntered="OnFourthQuarterEntered"
+                                      Grid.Column="3"
+                                      Background="Transparent"
+                                      Name="FourthStarFourthQuarterGrid"/>
+        </Grid>
+        <Grid
+                                VerticalAlignment="Top"
+                                  PointerExited="OnRatingControlExited">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock FontFamily="Segoe mdl2 assets"
+                                           Text="&#xE734;"
+                                           FontSize="24"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <TextBlock Name="FifthStarTextBlock"
+                                           FontFamily="Segoe mdl2 assets"
+                                           FontSize="24"
+                                           Grid.ColumnSpan="4"
+                                           FontWeight="Light"/>
+            <Grid PointerEntered="OnFirstQuarterEntered"
+                                      Background="Transparent"
+                                      Name="FifthStarFirstQuarterGrid"/>
+            <Grid Grid.Column="1"
+                                      PointerEntered="OnSecondQuarterEntered"
+                                      Background="Transparent"
+                                      Name="FifthStarSecondQuarterGrid"/>
+            <Grid PointerEntered="OnThirdQuarterEntered"
+                                      Grid.Column="2"
+                                      Background="Transparent"
+                                      Name="FifthStarThirdQuarterGrid"/>
+            <Grid PointerEntered="OnFourthQuarterEntered"
+                                      Grid.Column="3"
+                                      Background="Transparent"
+                                      Name="FifthStarFourthQuarterGrid"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

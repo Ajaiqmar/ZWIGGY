@@ -1,0 +1,24 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="ToggleButtonBackgroundChecked"
+                             Color="{Binding Source={StaticResource ApplicationBaseLightAccentColor},Path=Color}"/>
+            <SolidColorBrush x:Key="ToggleButtonForegroundChecked"
+                             Color="Black" />
+            <SolidColorBrush x:Key="ToggleButtonBackgroundCheckedPointerOver"
+                             Color="{Binding Source={StaticResource ApplicationBaseLightAccentColor},Path=Color}" />
+            <SolidColorBrush x:Key="ToggleButtonBackgroundPointerOver"
+                             Color="{Binding Source={StaticResource ApplicationBaseLightAccentColor},Path=Color}" />
+            <SolidColorBrush x:Key="ToggleButtonForegroundCheckedPointerOver"
+                             Color="Black" />
+            <SolidColorBrush x:Key="ToggleButtonBackgroundCheckedPressed"
+                             Color="{Binding Source={StaticResource ApplicationBaseLightAccentColor},Path=Color}" />
+            <SolidColorBrush x:Key="ToggleButtonBackgroundPressed"
+                             Color="{Binding Source={StaticResource ApplicationBaseLightAccentColor},Path=Color}" />
+            <SolidColorBrush x:Key="ToggleButtonForegroundCheckedPressed"
+                             Color="Black" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

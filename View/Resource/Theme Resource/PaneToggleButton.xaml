@@ -1,0 +1,16 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" 
+                             Color="Transparent"/>
+            <SolidColorBrush x:Key="ButtonBackgroundPressed" 
+                             Color="Transparent"/>
+            <SolidColorBrush x:Key="ButtonForegroundPressed"
+                             Color="{Binding Source={StaticResource ApplicationBaseAccentColor},Path=Color}" />
+            <SolidColorBrush x:Key="ButtonForegroundPointerOver"
+                             Color="{Binding Source={StaticResource ApplicationBaseAccentColor},Path=Color}" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

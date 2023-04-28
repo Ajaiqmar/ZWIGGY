@@ -1,0 +1,840 @@
+﻿<Page x:Class="Zwiggy.View.DishView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Zwiggy.View"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:vm="using:Zwiggy.ViewModel"
+      xmlns:c="using:Zwiggy.Converters"
+      xmlns:mbo="using:Zwiggy.Core.ModelBObj"
+      xmlns:vo="using:Zwiggy.ViewObj"
+      xmlns:uc="using:Zwiggy.View.User_Control"
+      mc:Ignorable="d"
+      Background="Transparent">
+
+
+    <!-- IMPORTING THE PAGE RESOURCES -->
+    <Page.Resources>
+        <ResourceDictionary>
+            <c:IntegerToVisibilityConverter x:Name="IntToVisConverter" />
+            <c:BooleanToColorConverter x:Name="BoolToColConverter" />
+            <c:ListToStringConverter x:Name="ListToStrConverter" />
+            <c:RestaurantBooleanToColorConverter x:Name="ResBoolToColConverter" />
+            <SolidColorBrush x:Key="HoverBorderBrush"
+                         Color="Black"
+                         Opacity="0.1" />
+        </ResourceDictionary>
+    </Page.Resources>
+    
+    <!-- MAIN GRID -->
+    <Grid Background="White"
+          CornerRadius="5,0,0,0">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1325" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters/>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1250" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="DishCategoryListViewGrid.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="DishViewFirstColumn.Width"
+                                Value="Auto"/>
+                        <Setter Target="DishViewSecondColumn.Width"
+                                Value="*"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1110" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RestaurantImage.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="DishCategoryListViewGrid.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="DishViewFirstColumn.Width"
+                                Value="Auto"/>
+                        <Setter Target="DishViewSecondColumn.Width"
+                                Value="3*"/>
+                        <Setter Target="DishViewLastColumn.Width"
+                                Value="2*"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="750" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RestaurantImage.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="DishCategoryListViewGrid.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="DishViewFirstColumn.Width"
+                                Value="Auto"/>
+                        <Setter Target="DishViewSecondColumn.Width"
+                                Value="*"/>
+                        <Setter Target="DishViewLastColumn.Width"
+                                Value="Auto"/>
+                        <Setter Target="DishViewLastColumn.MinWidth"
+                                Value="0"/>
+                        <Setter Target="DishCartGrid.Visibility"
+                                Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RestaurantImage.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="DishCategoryListViewGrid.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="DishViewFirstColumn.Width"
+                                Value="Auto"/>
+                        <Setter Target="DishViewSecondColumn.Width"
+                                Value="*"/>
+                        <Setter Target="DishViewSecondColumn.MinWidth"
+                                Value="0"/>
+                        <Setter Target="DishViewLastColumn.Width"
+                                Value="Auto"/>
+                        <Setter Target="DishViewLastColumn.MinWidth"
+                                Value="0"/>
+                        <Setter Target="DishCartGrid.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="HotelDetailsPanel.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="FavouriteDuplicateControl.Visibility"
+                                Value="Visible"/>
+                        <Setter Target="FavouriteControl.Visibility"
+                                Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- RESTAURANT DESCRIPTION SECTION -->
+        <Grid CornerRadius="5"
+              Background="#f4f4f4"
+              Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border Name="RestaurantImage"
+                    CornerRadius="5"
+                    HorizontalAlignment="Left"
+                    Margin="30,30,0,30">
+                <Grid>
+                    <Image Source="{x:Bind _dishVM.RestaurantInView.ImagePath}"
+                           Width="225"
+                           Height="135"
+                           Stretch="Fill" />
+                    <Rectangle Fill="Black"
+                               Opacity="0.1" />
+                </Grid>
+            </Border>
+            <Grid Grid.Column="1"
+                  Margin="30,25,30,30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MaxHeight="200"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Bind _dishVM.RestaurantInView.Name}"
+                           ToolTipService.Placement="Mouse"
+                           ToolTipService.ToolTip="{x:Bind _dishVM.RestaurantInView.Name}"
+                           Style="{ThemeResource HeaderTextBlockStyle}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap"
+                           FontWeight="SemiLight"
+                           FontSize="36" />
+                <TextBlock Text="{x:Bind _dishVM.RestaurantInView.Cuisines,Converter={StaticResource ListToStrConverter}}"
+                           ToolTipService.Placement="Mouse"
+                           ToolTipService.ToolTip="{x:Bind _dishVM.RestaurantInView.Cuisines,Converter={StaticResource ListToStrConverter}}"
+                           TextTrimming="CharacterEllipsis"
+                           TextWrapping="NoWrap"
+                           FontWeight="Light"
+                           Height="50"
+                           Grid.Row="1"
+                           FontSize="18"
+                           Opacity="0.5"
+                           Margin="0,3,0,0" />
+                <Grid Grid.Row="3"
+                      Name="ControlsBelowHeader">
+                    <Grid.ColumnDefinitions>
+                        <!--<ColumnDefinition/>-->
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--<uc:SearchControl PlaceholderText="Search for Dish"
+                                      HorizontalAlignment="Stretch"
+                                      PlaceholderForeground="Black" />-->
+                    <StackPanel Orientation="Horizontal"
+                                Height="40"
+                                Background="#dcdcdc"
+                                CornerRadius="5"
+                                Padding="10,0,10,0">
+                        <Button Name="VegButton" 
+                                Padding="0"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                VerticalAlignment="Center"
+                                Margin="0,0,7.5,0"
+                                Click="OnVegButtonClicked">
+                            <Button.Resources>
+                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                                 Color="Transparent" />
+                                <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                                 Color="Transparent" />
+                            </Button.Resources>
+                            <Grid Background="#acacac"
+                                  CornerRadius="5"
+                                  Width="30">
+                                <Grid CornerRadius="5"
+                                      HorizontalAlignment="Left">
+                                    <TextBlock FontFamily="Segoe mdl2 assets"
+                                               FontWeight="Light"
+                                               Text="&#xE002;"
+                                               FontSize="16"
+                                               Foreground="White" />
+                                    <Border CornerRadius="5"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                        <TextBlock FontFamily="Segoe mdl2 assets"
+                                                   FontWeight="Light"
+                                                   Text="&#xE002;"
+                                                   FontSize="8"
+                                                   Foreground="Transparent" />
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                        </Button>
+                        <TextBlock Text="Veg"
+                                   FontWeight="Light"
+                                   FontSize="16"
+                                   VerticalAlignment="Center" />
+                    </StackPanel>
+                    <StackPanel x:Name="FavouriteDuplicateControl"
+                                Visibility="Collapsed"
+                        Orientation="Horizontal"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Background="#dcdcdc"
+                                Padding="10,0,10,0"
+                                CornerRadius="5"
+                                Margin="10,0,0,0">
+                        <Button Padding="0"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                VerticalAlignment="Center"
+                                PointerEntered="OnFavouriteButtonPointerEnter"
+                                PointerExited="OnFavouriteButtonPointerExit"
+                                Click="OnFavouriteButtonClicked">
+                            <Button.Resources>
+                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                                 Color="Transparent" />
+                                <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                                 Color="Transparent" />
+                            </Button.Resources>
+                            <Grid>
+                                <TextBlock FontFamily="Segoe mdl2 assets"
+                                           FontWeight="Light"
+                                           Text="&#xE00B;"
+                                           FontSize="18"
+                                           Foreground="{x:Bind _dishVM.RestaurantInView.IsFavourite,Converter={StaticResource ResBoolToColConverter}}" />
+                                <TextBlock FontFamily="Segoe mdl2 assets"
+                                           FontWeight="Light"
+                                           FontSize="18"
+                                           Text="&#xE006;"
+                                           Foreground="Black"
+                                           Opacity="0.5" />
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2"
+                           Margin="30">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Name="FavouriteControl"
+                    Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal"
+                                Background="#dcdcdc"
+                                Padding="10,0,10,0"
+                                CornerRadius="5"
+                                Margin="0,0,10,0">
+                        <Button Padding="0"
+                                BorderThickness="0"
+                                Background="Transparent"
+                                VerticalAlignment="Center"
+                                PointerEntered="OnFavouriteButtonPointerEnter"
+                                PointerExited="OnFavouriteButtonPointerExit"
+                                Click="OnFavouriteButtonClicked">
+                            <Button.Resources>
+                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                                 Color="Transparent" />
+                                <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                                 Color="Transparent" />
+                            </Button.Resources>
+                            <Grid>
+                                <TextBlock FontFamily="Segoe mdl2 assets"
+                                           FontWeight="Light"
+                                           Text="&#xE00B;"
+                                           FontSize="18"
+                                           Foreground="{x:Bind _dishVM.RestaurantInView.IsFavourite,Converter={StaticResource ResBoolToColConverter}}" />
+                                <TextBlock FontFamily="Segoe mdl2 assets"
+                                           FontWeight="Light"
+                                           FontSize="18"
+                                           Text="&#xE006;"
+                                           Foreground="Black"
+                                           Opacity="0.5" />
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+                    <Border Name="RestaurantRatingControl"
+                        Background="#dcdcdc"
+                                CornerRadius="5"
+                            Padding="10,5,10,2.5">
+                        <RatingControl Value="4.2"
+                                       
+                                       IsReadOnly="True">
+                            <RatingControl.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Default">
+                                            <SolidColorBrush x:Key="RatingControlSelectedForeground"
+                                                             Color="Green" />
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </RatingControl.Resources>
+                        </RatingControl>
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Name="HotelDetailsPanel"
+                            Grid.Row="2">
+                    <TextBlock Text="&#xE121;"
+                               FontFamily="Segoe mdl2 assets"
+                               VerticalAlignment="Bottom"
+                               FontSize="24"
+                               Margin="0,0,5,0"/>
+                    <TextBlock Text="23 mins"
+                               Margin="0,0,20,0"
+                               VerticalAlignment="Center"
+                               FontWeight="Light"/>
+                    <Grid>
+                        <TextBlock Text="&#xECCA;"
+                                   FontFamily="Segoe mdl2 assets"
+                                   VerticalAlignment="Bottom"
+                                   FontSize="24"
+                                   Margin="0,0,5,0" />
+                        <TextBlock Text="&#x20B9;"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontSize="16"
+                                   Margin="0,0,5,0" />
+                    </Grid>
+                    <StackPanel VerticalAlignment="Center"
+                                 Orientation="Horizontal">
+                        <TextBlock Text="&#x20B9;"
+                                   FontWeight="Light"/>
+                        <TextBlock Text="{x:Bind _dishVM.RestaurantInView.CostForTwo}"
+                                   FontWeight="Light"/>
+                        <TextBlock Text=" for two"
+                                   FontWeight="Light"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!-- DISH SECTION-->
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="DishViewFirstColumn"
+                    Width="1*"/>
+                <ColumnDefinition x:Name="DishViewSecondColumn"
+                    Width="2*"
+                                  MinWidth="600"/>
+                <ColumnDefinition x:Name="DishViewLastColumn"
+                                  Width="430"/>
+            </Grid.ColumnDefinitions>
+            <Grid Name="DishCategoryListViewGrid"
+                Margin="10,0,0,10"
+                  Background="#f4f4f4"
+                  CornerRadius="5">
+                <ListView Name="DishCategoryListView"
+                          Margin="20,20,0,20"
+                          SelectionMode="Single"
+                          Background="Transparent"
+                          SelectedIndex="0"
+                          ItemsSource="{x:Bind _dishVM.RestaurantDishCategories,Mode=OneWay}"
+                          IsItemClickEnabled="True"
+                          ItemClick="OnDishCategoryClicked">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Foreground"
+                                    Value="Black" />
+                            <Setter Property="FontSize"
+                                    Value="22" />
+                            <Setter Property="FontWeight"
+                                    Value="Light" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.ThemeDictionaries>
+                                <ResourceDictionary x:Key="Default">
+                                    <SolidColorBrush x:Key="ListViewItemBackgroundPointerOver"
+                                                     Color="Transparent" />
+                                    <SolidColorBrush x:Key="ListViewItemBackgroundPressed"
+                                                     Color="Transparent" />
+                                    <SolidColorBrush x:Key="ListViewItemBackgroundSelected"
+                                                     Color="Transparent" />
+                                    <SolidColorBrush x:Key="ListViewItemForegroundPointerOver"
+                                                     Color="{Binding Source={StaticResource ApplicationBaseAccentColor},Path=Color}"  />
+                                    <SolidColorBrush x:Key="ListViewItemForegroundPressed"
+                                                     Color="Gray" />
+                                    <SolidColorBrush x:Key="ListViewItemForegroundSelected"
+                                                     Color="{Binding Source={StaticResource ApplicationBaseAccentColor},Path=Color}"  />
+                                    <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPointerOver"
+                                                     Color="Transparent" />
+                                    <SolidColorBrush x:Key="ListViewItemBackgroundSelectedPressed"
+                                                     Color="Transparent" />
+                                </ResourceDictionary>
+                            </ResourceDictionary.ThemeDictionaries>
+                        </ResourceDictionary>
+                    </ListView.Resources>
+                </ListView>
+            </Grid>
+            <Grid Grid.Column="1"
+                  HorizontalAlignment="Stretch"
+                  Margin="10,0,10,0"
+                  CornerRadius="5,5,0,0"
+                  Background="#f4f4f4">
+                <ListView x:Name="DishListView"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      SelectionMode="None"
+                      VerticalAlignment="Top"
+                          HorizontalAlignment="Stretch"
+                      ItemsSource="{x:Bind _dishVM.Dishes,Mode=OneWay}"
+                      IsItemClickEnabled="False"
+                      Loaded="DishListView_Loaded">
+                    <ListView.ItemContainerTransitions>
+                        <TransitionCollection />
+                    </ListView.ItemContainerTransitions>
+                    <ListView.Resources>
+                        <ResourceDictionary>
+                            <ResourceDictionary.ThemeDictionaries>
+                                <ResourceDictionary x:Key="Default">
+                                    <SolidColorBrush x:Key="ListViewHeaderItemDividerStroke"
+                                                 Color="Transparent" />
+                                </ResourceDictionary>
+                            </ResourceDictionary.ThemeDictionaries>
+                        </ResourceDictionary>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                            <Setter Property="Margin"
+                                    Value="0"/>
+                            <Setter Property="Padding"
+                                    Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsStackPanel AreStickyGroupHeadersEnabled="False" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderContainerStyle>
+                                <Style TargetType="ListViewHeaderItem">
+                                    <Setter Property="HorizontalContentAlignment"
+                                Value="Stretch" />
+                                </Style>
+                            </GroupStyle.HeaderContainerStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate x:DataType="vo:DishCollection">
+                                    <Button FontWeight="Light"
+                                            Margin="20,10,20,0"
+                                        Foreground="Black"
+                                        Background="Transparent"
+                                            HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Stretch"
+                                        BorderThickness="0"
+                                        Padding="0"
+                                        Click="OnDishHeaderClicked">
+                                        <Grid HorizontalAlignment="Stretch">
+                                            <TextBlock Name="ListViewHeader"
+                                                       HorizontalAlignment="Left"
+                                                   Text="{Binding Key}"
+                                                   FontSize="26" />
+                                            <TextBlock Text="{Binding ListViewHeaderArrow}"
+                                                       HorizontalAlignment="Right"
+                                                   FontFamily="Segoe mdl2 assets"
+                                                   FontSize="12"
+                                                   FontWeight="Light"
+                                                   VerticalAlignment="Center" />
+                                        </Grid>
+                                        <Button.Resources>
+                                            <ResourceDictionary>
+                                                <ResourceDictionary.ThemeDictionaries>
+                                                    <ResourceDictionary x:Key="Default">
+                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                                                     Color="Transparent" />
+                                                        <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                                                     Color="Transparent" />
+                                                        <SolidColorBrush x:Key="ButtonForegroundPressed"
+                                                                     Color="{Binding Source={StaticResource ApplicationBaseAccentColor},Path=Color}" />
+                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver"
+                                                                     Color="{Binding Source={StaticResource ApplicationBaseAccentColor},Path=Color}" />
+                                                    </ResourceDictionary>
+                                                </ResourceDictionary.ThemeDictionaries>
+                                            </ResourceDictionary>
+                                        </Button.Resources>
+                                    </Button>
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="mbo:DishBObj">
+                            <Grid Name="DishGrid"
+                                  Margin="30,0,26,10"
+                              CornerRadius="5"
+                              Background="White"
+                              BorderThickness="0,0,5,5">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup>
+                                        <VisualState>
+                                            <VisualState.StateTriggers>
+                                                <AdaptiveTrigger MinWindowWidth="600"/>
+                                            </VisualState.StateTriggers>
+                                            <VisualState.Setters>
+                                                <Setter Target="DishImage.Visibility"
+                                                        Value="Collapsed"/>
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+
+                                <Grid Margin="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Height="125"
+                                          Name="DishImage">
+                                        <Border CornerRadius="5">
+                                            <Image Source="{Binding ImagePath}"
+                                               Width="125"
+                                               Stretch="Fill" />
+                                        </Border>
+                                        <Border Background="Black"
+                                            Opacity="0.1"
+                                            CornerRadius="5" />
+                                    </Grid>
+                                    <Grid Grid.Column="1"
+                                          Margin="10,0,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+
+                                        <Grid VerticalAlignment="Top">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <uc:DietSymbolControl Name="VegSymbol"
+                                                          Height="15"
+                                                          Width="15"
+                                                          Diameter="9"
+                                                          VerticalAlignment="Top"
+                                                          Margin="0,5,0,0"
+                                                          DietColor="{Binding IsVeg,Converter={StaticResource BoolToColConverter}}" />
+                                            <TextBlock Name="DishNameTextBlock"
+                                               Text="{Binding Name}"
+                                                       ToolTipService.Placement="Mouse"
+                                   ToolTipService.ToolTip="{Binding Name}"
+                                               Style="{ThemeResource CaptionTextBlockStyle}"
+                                               FontSize="18"
+                                                       TextWrapping="NoWrap"
+                                                       TextTrimming="CharacterEllipsis"
+                                                       VerticalAlignment="Top"
+                                                       Grid.Column="1"
+                                               Margin="5,0,10,0" />
+                                        </Grid>
+
+                                        <Grid Grid.Row="1"
+                                              MaxHeight="80"
+                                              Margin="0,0,10,0"
+                                              VerticalAlignment="Top">
+                                            <TextBlock Text="{Binding Description}"
+                                                       ToolTipService.Placement="Mouse"
+                                   ToolTipService.ToolTip="{Binding Description}"
+                                               Margin="0,10,0,0"
+                                                       VerticalAlignment="Top"
+                                                       HorizontalAlignment="Left"
+                                               Foreground="#a7a8ab"
+                                               FontSize="12"
+                                               TextWrapping="Wrap" 
+                                                       TextTrimming="CharacterEllipsis"/>
+                                        </Grid>
+
+                                        <Grid Grid.Column="1">
+                                            <StackPanel Name="DishCostTextBlock"
+                                                Orientation="Horizontal"
+                                                        VerticalAlignment="Top"
+                                                        HorizontalAlignment="Right">
+                                                <TextBlock Text="&#x20B9;"
+                                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                                   FontSize="18" />
+                                                <TextBlock Text="{Binding Cost}"
+                                                   Style="{ThemeResource CaptionTextBlockStyle}"
+                                                   FontSize="18" />
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <Grid Grid.Row="1"
+                                              Grid.Column="1"
+                                              VerticalAlignment="Bottom">
+                                            <StackPanel Orientation="Horizontal"
+                                                        VerticalAlignment="Bottom"
+                                                        HorizontalAlignment="Right">
+                                                <StackPanel Orientation="Horizontal"
+                                                    Visibility="{Binding DishCount,Converter={StaticResource IntToVisConverter}}">
+                                                    <Button Content="&#xE108;"
+                                                    FontFamily="Segoe mdl2 assets"
+                                                    VerticalAlignment="Center"
+                                                    Background="Transparent"
+                                                    BorderBrush="Gray"
+                                                    Foreground="Gray"
+                                                    FontSize="10"
+                                                    BorderThickness="1"
+                                                    CornerRadius="5"
+                                                    Height="25"
+                                                    Width="25"
+                                                    Padding="0"
+                                                    Click="OnRemoveDishClicked">
+                                                        <Button.Resources>
+                                                            <ResourceDictionary>
+                                                                <ResourceDictionary.ThemeDictionaries>
+                                                                    <ResourceDictionary x:Key="Default">
+                                                                        <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                                                                 Color="#ee9090" />
+                                                                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
+                                                                                 Color="#922827" />
+                                                                        <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                                                                 Color="#ee9090" />
+                                                                        <SolidColorBrush x:Key="ButtonBorderBrushPressed"
+                                                                                 Color="#922827" />
+                                                                        <SolidColorBrush x:Key="ButtonForegroundPressed"
+                                                                                 Color="#922827" />
+                                                                        <SolidColorBrush x:Key="ButtonForegroundPointerOver"
+                                                                                 Color="#922827" />
+                                                                    </ResourceDictionary>
+                                                                </ResourceDictionary.ThemeDictionaries>
+                                                            </ResourceDictionary>
+                                                        </Button.Resources>
+                                                    </Button>
+                                                    <TextBlock Name="DishCount"
+                                                       Text="{Binding DishCount}"
+                                                       Margin="5,0,5,0"
+                                                       VerticalAlignment="Center" />
+                                                </StackPanel>
+                                                <Button Content="&#xE109;"
+                                                FontFamily="Segoe mdl2 assets"
+                                                VerticalAlignment="Center"
+                                                Background="Transparent"
+                                                BorderBrush="Gray"
+                                                Foreground="Gray"
+                                                BorderThickness="1"
+                                                FontSize="10"
+                                                CornerRadius="5"
+                                                Height="25"
+                                                Width="25"
+                                                Padding="0"
+                                                Click="OnAddDishClicked">
+                                                    <Button.Resources>
+                                                        <ResourceDictionary>
+                                                            <ResourceDictionary.ThemeDictionaries>
+                                                                <ResourceDictionary x:Key="Default">
+                                                                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                                                             Color="#E9FCE9" />
+                                                                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver"
+                                                                             Color="#29682b" />
+                                                                    <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                                                             Color="#E9FCE9" />
+                                                                    <SolidColorBrush x:Key="ButtonBorderBrushPressed"
+                                                                             Color="#29682b" />
+                                                                    <SolidColorBrush x:Key="ButtonForegroundPressed"
+                                                                             Color="#29682b" />
+                                                                    <SolidColorBrush x:Key="ButtonForegroundPointerOver"
+                                                                             Color="#29682b" />
+                                                                </ResourceDictionary>
+                                                            </ResourceDictionary.ThemeDictionaries>
+                                                        </ResourceDictionary>
+                                                    </Button.Resources>
+                                                </Button>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            <Grid Name="DishCartGrid"
+                Grid.Column="2"
+                  Margin="0,0,10,0"
+                  Background="#f4f4f4"
+                  CornerRadius="5,5,0,0">
+                <Grid x:Name="EmptyCartGrid"
+                      Visibility="{x:Bind _dishVM.IsCartEmpty,Mode=OneWay}">
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <Image Source="../Assets/Images/Icons/noCart.png"
+                       Height="50"
+                       Width="50"/>
+                        <TextBlock Text="Empty Cart"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           FontSize="18"
+                                       Margin="0,5,0,5"
+                                       FontWeight="Light"
+                           HorizontalAlignment="Center" />
+                        <TextBlock Text="Enough drooling over these yummy foods, Just order already. Just do it !!"
+                           Style="{ThemeResource CaptionTextBlockStyle}"
+                           FontSize="14"
+                                       Width="300"
+                                       HorizontalTextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Opacity="0.5"
+                                       FontWeight="Light"
+                           HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+                <Grid Name="CartGrid"
+                            Visibility="{x:Bind _dishVM.IsCartNotEmpty,Mode=OneWay}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Cart"
+                                   Style="{ThemeResource HeaderTextBlockStyle}"
+                                   FontSize="28"
+                                   Foreground="Gray" />
+                        <TextBlock Text="{x:Bind _dishVM.CartInView.RestaurantPicked.Name,Mode=OneWay}"
+                                   Style="{ThemeResource SubheaderTextBlockStyle}"
+                                   FontSize="15"
+                                   Margin="1,0,0,0"
+                                   Foreground="Gray" />
+                    </StackPanel>
+                    <uc:DishListViewControl Grid.Row="1"
+                                            Margin="10,0,10,0"
+                                    ItemsSource="{x:Bind _dishVM.CartInView.Dishes,Mode=OneWay}"
+                                    AddDish="OnAddDishClicked"
+                                    RemoveDish="OnRemoveDishClicked"/>
+                    <Grid Grid.Row="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Margin="20,0,20,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Item Cost"
+                                   Foreground="gray"
+                                   Style="{ThemeResource HeaderTextBlockStyle}"
+                                   FontSize="14" />
+                            <StackPanel Orientation="Horizontal"
+                                    Grid.Column="2">
+                                <TextBlock Text="&#x20B9;"
+                                       Style="{ThemeResource HeaderTextBlockStyle}"
+                                       Foreground="gray"
+                                       FontSize="14" />
+                                <TextBlock Text="{x:Bind _dishVM.CartInView.BillAmount,Mode=OneWay}"
+                                       Style="{ThemeResource HeaderTextBlockStyle}"
+                                       Foreground="gray"
+                                       FontSize="14"
+                                       Margin="1,0,0,0" />
+                            </StackPanel>
+                        </Grid>
+                        <Button Margin="20,10,20,20"
+                                Grid.Row="1"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                            Background="{StaticResource ApplicationBaseAccentColor}"
+                            Foreground="white"
+                                Height="40"
+                            Padding="15,0,15,0"
+                            BorderThickness="0"
+                            CornerRadius="5"
+                            Click="GetCartView">
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.MergedDictionaries>
+                                        <ResourceDictionary Source="Resource/Theme Resource/FormSubmitButton.xaml" />
+                                    </ResourceDictionary.MergedDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                            <Button.Content>
+                                <Grid>
+                                    <TextBlock Text="Place Order"
+                                           Style="{ThemeResource HeaderTextBlockStyle}"
+                                           FontWeight="SemiLight"
+                                           FontSize="16" 
+                                               HorizontalAlignment="Left"/>
+                                    <TextBlock Text="&#xE017;"
+                                           FontFamily="Segoe mdl2 assets"
+                                           Style="{ThemeResource HeaderTextBlockStyle}"
+                                           FontWeight="Normal"
+                                           FontSize="8"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Right"
+                                           Margin="5,4,0,0" />
+                                </Grid>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,138 @@
+﻿<UserControl
+    x:Class="Zwiggy.View.User_Control.RestaurantGridViewControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Zwiggy.View.User_Control"
+    xmlns:mbo="using:Zwiggy.Core.ModelBObj"
+    xmlns:c="using:Zwiggy.Converters"
+   xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <c:ListToStringConverter x:Name="ListToStrConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <controls:AdaptiveGridView Name="RestaurantGridView"
+                                               SelectionMode="None"
+                                               IsItemClickEnabled="True"
+                                               DesiredWidth="550"
+                                               ItemHeight="150"
+                                               Margin="5,0,5,0"
+                                           ItemsSource="{x:Bind ItemsSource,Mode=OneWay}"
+                                               ItemClick="OnRestaurantSelect"
+                                               ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                                               ScrollViewer.VerticalScrollMode="Enabled">
+        <controls:AdaptiveGridView.Resources>
+            <SolidColorBrush x:Key="GridViewItemBackgroundPointerOver"
+                                             Color="Transparent" />
+            <SolidColorBrush x:Key="GridViewItemBackgroundPressed"
+                                             Color="Transparent" />
+        </controls:AdaptiveGridView.Resources>
+        <controls:AdaptiveGridView.ItemContainerTransitions>
+            <TransitionCollection />
+        </controls:AdaptiveGridView.ItemContainerTransitions>
+        <controls:AdaptiveGridView.ItemContainerStyle>
+            <Style TargetType="GridViewItem">
+                <Setter Property="Margin"
+                                        Value="5" />
+            </Style>
+        </controls:AdaptiveGridView.ItemContainerStyle>
+        <controls:AdaptiveGridView.ItemTemplate>
+            <DataTemplate x:DataType="mbo:RestaurantBObj">
+                <Grid Background="White"
+                                          CornerRadius="5"
+                                      BorderThickness="0.5"
+                                          HorizontalAlignment="Stretch"
+                                          PointerEntered="OnRestaurantContentHover"
+                                          PointerExited="OnRestaurantContentLeave">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Margin="10"
+                                              CornerRadius="5">
+                        <Border>
+                            <Image Source="{Binding ImagePath}"
+                                                       Width="150"
+                                                       Stretch="Fill" />
+                        </Border>
+                        <Border Background="Black"
+                                                    Opacity="0.1"
+                                                    CornerRadius="5" />
+                    </Grid>
+                    <StackPanel Grid.Column="1"
+                                                    Margin="0,0,10,0">
+                        <TextBlock Name="RestaurantNameTextBlock"
+                                   ToolTipService.Placement="Mouse"
+                                   ToolTipService.ToolTip="{Binding Name}"
+                                                       Text="{Binding Name}"
+                                                       Style="{ThemeResource HeaderTextBlockStyle}"
+                                                       FontSize="20"
+                                                       Margin="5,10,0,5" />
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal"
+                                                            Padding="5,2,5,4"
+                                                            Width="47.5"
+                                                            HorizontalAlignment="Left"
+                                                            Margin="5,0,0,5"
+                                                            Background="#48c479"
+                                                            CornerRadius="5">
+                                <TextBlock Text="&#xE00A;"
+                                                               FontFamily="Segoe mdl2 assets"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="White"
+                                                               FontSize="13" />
+                                <TextBlock Text="4.4"
+                                                               Margin="5,0,0,0"
+                                                               FontSize="13"
+                                                               Foreground="White" />
+                            </StackPanel>
+                            <Ellipse Height="4"
+                                                         Width="4"
+                                                         Margin="5,0,5,5"
+                                                         Fill="#696b79"
+                                                         Opacity="0.5" />
+                            <TextBlock Text="23 min"
+                                                           FontSize="13"
+                                                           VerticalAlignment="Center"
+                                                           Margin="0,0,0,7.5"
+                                                           Foreground="#696b79"
+                                                           Opacity="0.6" />
+                            <Ellipse Height="4"
+                                                         Width="4"
+                                                         Margin="5,0,5,5"
+                                                         Fill="#696b79"
+                                                         Opacity="0.5" />
+                            <StackPanel  Margin="0,0,0,7.5"
+                                                             VerticalAlignment="Center"
+                                                             Orientation="Horizontal"
+                                                             Opacity="0.6">
+                                <TextBlock Text="&#x20B9;"
+                                                               FontSize="13"
+                                                               Foreground="#696b79" />
+                                <TextBlock Text="{Binding CostForTwo}"
+                                                               FontSize="13"
+                                                               Foreground="#696b79" />
+                                <TextBlock Text=" for Two"
+                                                               FontSize="13"
+                                                               Foreground="#696b79" />
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Text="{Binding Cuisines, Converter={StaticResource ListToStrConverter}}"
+                                                       FontSize="13"
+                                                       HorizontalAlignment="Left"
+                                                       TextWrapping="Wrap"
+                                                       Opacity="0.6"
+                                                       Margin="5,0,5,0" />
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+        </controls:AdaptiveGridView.ItemTemplate>
+    </controls:AdaptiveGridView>
+</UserControl>

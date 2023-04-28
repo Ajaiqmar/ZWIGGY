@@ -1,0 +1,288 @@
+﻿<UserControl x:Class="Zwiggy.View.User_Control.AppNavigationControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Zwiggy.View.User_Control"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Loaded="OnAppNavigationControlLoaded"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Width="60"
+          Background="{StaticResource ApplicationBaseAccentColor}"
+          HorizontalAlignment="Left">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ListBox Background="{StaticResource ApplicationBaseAccentColor}"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 SelectionMode="Single"
+                 HorizontalContentAlignment="Center"
+                 SelectionChanged="OnNavigationSelected">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="TabNavigation" Value="Local" />
+                    <Setter Property="Padding" Value="{StaticResource ListBoxItemPadding}" />
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+
+                                    <Grid.Resources>
+                                        <Style x:Key="BaseContentPresenterStyle" TargetType="ContentPresenter">
+                                            <Setter Property="FontFamily" Value="XamlAutoFontFamily" />
+                                            <Setter Property="FontWeight" Value="SemiBold" />
+                                            <Setter Property="TextWrapping" Value="Wrap" />
+                                            <Setter Property="LineStackingStrategy" Value="MaxHeight" />
+                                            <Setter Property="TextLineBounds" Value="Full" />
+                                            <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
+                                        </Style>
+                                        <Style x:Key="BodyContentPresenterStyle" TargetType="ContentPresenter" BasedOn="{StaticResource BaseContentPresenterStyle}">
+                                            <Setter Property="FontWeight" Value="Normal" />
+                                        </Style>
+                                    </Grid.Resources>
+
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualState x:Name="Normal">
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Disabled">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                            <VisualState x:Name="PointerOver">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ApplicationBaseAccentColor}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Pressed">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ApplicationBaseAccentColor}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                            <VisualState x:Name="Selected">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ApplicationBaseAccentColor}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SelectedUnfocused">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ApplicationBaseAccentColor}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SelectedPointerOver">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ApplicationBaseAccentColor}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="SelectedPressed">
+
+                                                <Storyboard>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PressedBackground" Storyboard.TargetProperty="Fill">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                        <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource ApplicationBaseAccentColor}" />
+                                                    </ObjectAnimationUsingKeyFrames>
+                                                </Storyboard>
+                                            </VisualState>
+
+                                        </VisualStateGroup>
+
+                                    </VisualStateManager.VisualStateGroups>
+                                    <Rectangle x:Name="PressedBackground" Fill="Transparent" Control.IsTemplateFocusTarget="True" />
+                                    <ContentPresenter x:Name="ContentPresenter"
+                            Content="{TemplateBinding Content}"
+                            ContentTransitions="{TemplateBinding ContentTransitions}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Style="{StaticResource BodyContentPresenterStyle}"
+                            TextWrapping="NoWrap"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Margin="{TemplateBinding Padding}" />
+
+                                </Grid>
+
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBoxItem Name="HomeNavigationItem"
+                         HorizontalContentAlignment="Center"
+                         ToolTipService.Placement="Mouse"
+                         ToolTipService.ToolTip="Home"
+                         IsSelected="{x:Bind HomeSelected,Mode=TwoWay}"
+                         Loaded="OnHomeNavigationLoaded"
+                         PointerEntered="OnPointerEnterListItem"
+                         PointerExited="OnPointerExitListItem"
+                         Margin="0,20,0,20" >
+                <Grid>
+                    <Ellipse Name="HomeHighlight"
+                             Visibility="Collapsed"
+                             Fill="White"
+                             Height="33"
+                             Width="33" />
+                    <TextBlock Text="&#xE10F;"
+                               Padding="6"
+                               FontFamily="Segoe mdl2 assets"
+                               FontSize="22"/>
+                </Grid>
+            </ListBoxItem>
+            <ListBoxItem Name="CartNavigationItem"
+                         HorizontalContentAlignment="Center"
+                         ToolTipService.Placement="Mouse"
+                         ToolTipService.ToolTip="Cart"
+                         PointerEntered="OnPointerEnterListItem"
+                         PointerExited="OnPointerExitListItem"
+                         Margin="0,20,0,20" 
+                         IsSelected="{x:Bind CartSelected,Mode=TwoWay}">
+                <Grid>
+                    <Ellipse Name="CartHighlight"
+                             Visibility="Collapsed"
+                             Fill="White"
+                             Height="32"
+                             Width="32" />
+                    <TextBlock Text="&#xE719;"
+                               Name="CartTextBlock"
+                               Padding="6"
+                               FontFamily="Segoe mdl2 assets"
+                               FontSize="20"/>
+                    <Popup Name="NotificationPopup" 
+                           IsOpen="True"
+                           Margin="0,-5,13,0"
+                           HorizontalAlignment="Right">
+                        <Popup.Child>
+                            <Grid Name="PopupBackground" 
+                                  Background="White"
+                                  CornerRadius="10"
+                                  Height="18"
+                                  Width="18"
+                                  PointerEntered="OnPointerEnterListItem"
+                           PointerExited="OnPointerExitListItem">
+                                <TextBlock x:Name="PopupText"
+                                           FontSize="12"
+                                           Text="{x:Bind CartDishCount,Mode=OneWay}"
+                                           TextTrimming="CharacterEllipsis"
+                                           Foreground="{StaticResource ApplicationBaseAccentColor}"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Popup.Child>
+                    </Popup>
+                </Grid>
+            </ListBoxItem>
+            <ListBoxItem Name="ProfileNavigationItem"
+                         HorizontalContentAlignment="Center"
+                         ToolTipService.Placement="Mouse"
+                         ToolTipService.ToolTip="Profile"
+                         Margin="0,20,0,20"
+                         PointerEntered="OnPointerEnterListItem"
+                         PointerExited="OnPointerExitListItem">
+                <Grid>
+                    <Ellipse Name="ProfileHighlight"
+                             Visibility="Collapsed"
+                             Fill="White"
+                             Height="32"
+                             Width="32" />
+                    <TextBlock Text="&#xE2AF;"
+                               Padding="6"
+                               FontFamily="Segoe mdl2 assets"
+                               FontSize="20" />
+                </Grid>
+            </ListBoxItem>
+        </ListBox>
+
+
+        <Button Content="&#xF3B1;"
+                FontFamily="Segoe mdl2 assets"
+                FontSize="18"
+                HorizontalAlignment="Center"
+                Foreground="White"
+                Margin="0,0,0,15"
+                Background="Transparent"
+                Grid.Row="1"
+                BorderThickness="0"
+                CornerRadius="5"
+                Height="31"
+                Width="31"
+                Padding="0"
+                Click="LogOutUser">
+            <Button.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Default">
+                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver"
+                                             Color="Black"
+                                             Opacity="0.1" />
+                            <SolidColorBrush x:Key="ButtonForegroundPointerOver"
+                                             Color="White" />
+                            <SolidColorBrush x:Key="ButtonBackgroundPressed"
+                                             Color="Black"
+                                             Opacity="0.1" />
+                            <SolidColorBrush x:Key="ButtonForegroundPressed"
+                                             Color="White" />
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </Button.Resources>
+        </Button>
+    </Grid>
+</UserControl>
