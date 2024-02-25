@@ -15,3 +15,9 @@ Clean Architecture was used to design the Applications Code Flow in an attempt t
 <br/>
 
 ![CleanArchitecture](https://github.com/Ajaiqmar/ZWIGGY/assets/54910043/09cd7aa4-7f76-438c-b933-742567c4bb30)
+
+<br/>
+<h2> 🖥️ Technology Stack </h2>
+<img src="https://img.shields.io/badge/C Sharp-%20-brightgreen" />
+<img src="https://img.shields.io/badge/XAML-%20-green" />
+<img src="https://img.shields.io/badge/SQLite-%20-red" />
