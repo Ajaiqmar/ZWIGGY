@@ -7,6 +7,4 @@ Zwiggy Application was whipped up based on the thought that "What if food delive
 
 https://github.com/Ajaiqmar/ZWIGGY/assets/54910043/b50816ae-8e15-4405-8b36-6a59a5416fe6
 
-<br/>
-<br/>
 <h2> 🏭 Architecture </h2>
