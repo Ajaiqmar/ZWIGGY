@@ -9,7 +9,9 @@ https://github.com/Ajaiqmar/ZWIGGY/assets/54910043/b50816ae-8e15-4405-8b36-6a59a
 
 <br/>
 <h2> 🏭 Architecture </h2>
-Clean Architecture was used 
+Clean Architecture was used to design the Applications Code Flow in an attempt to make sure all the services are loosely coupled, making it reusable and lessen code redundancy. The Below attached onion diagram will shed a light on how the architecture works, if posed with any doubts feel free to reach me out.
 
 <br/>
+<br/>
+
 ![CleanArchitecture](https://github.com/Ajaiqmar/ZWIGGY/assets/54910043/09cd7aa4-7f76-438c-b933-742567c4bb30)
