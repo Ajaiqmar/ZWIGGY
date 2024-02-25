@@ -9,3 +9,7 @@ https://github.com/Ajaiqmar/ZWIGGY/assets/54910043/b50816ae-8e15-4405-8b36-6a59a
 
 <br/>
 <h2> 🏭 Architecture </h2>
+Clean Architecture was used 
+
+<br/>
+![CleanArchitecture](https://github.com/Ajaiqmar/ZWIGGY/assets/54910043/09cd7aa4-7f76-438c-b933-742567c4bb30)
